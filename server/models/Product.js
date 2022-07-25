@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
-const { Schema } = mongoose;
+const Review = require("./Review");
+const { Schema, model } = mongoose;
 
 const productSchema = new Schema({
   title: {
@@ -15,12 +15,15 @@ const productSchema = new Schema({
   subject: {
     type: String,
   },
-  startGrade: {
-    type: Number,
+  gradeBand: {
+    type: String,
   },
-  endGrade: {
-    type: Number,
-  },
+  review: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
 });
 
 const Product = model("Product", productSchema);

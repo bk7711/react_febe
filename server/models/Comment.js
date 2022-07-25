@@ -1,5 +1,28 @@
 const { Schema, model, Types } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
+// const Reply = require("./Reply");
+
+const replySchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+    },
+    replyBody: {
+      type: String,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (createdAtVal) => dateFormat(createdAtVal),
+    },
+  },
+  {
+    toJson: {
+      getters: true,
+    },
+  }
+);
 
 const commentSchema = new Schema(
   {
