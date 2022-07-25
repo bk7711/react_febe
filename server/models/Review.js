@@ -4,6 +4,10 @@ const Product = require("./Product");
 const { Schema } = mongoose;
 
 const reviewSchema = new Schema({
+  username: {
+    type: String,
+    required: true,
+  },
   implementationMonth: {
     type: String,
   },
@@ -28,6 +32,12 @@ const reviewSchema = new Schema({
   },
   support: {
     type: Number,
+  },
+  overall: {
+    type: Number,
+  },
+  reviewBody: {
+    type: String,
   },
   product: [Product.schema],
 });

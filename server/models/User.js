@@ -1,39 +1,68 @@
 const mongoose = require("mongoose");
 
-const { Schema } = mongoose;
+const { Schema, model } = mongoose;
 const bcrypt = require("bcrypt");
 const Review = require("./Review");
 
-const userSchema = new Schema({
-  firstName: {
-    type: String,
-    required: true,
-    trim: true,
+const userSchema = new Schema(
+  {
+    firstName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 5,
+    },
+    district: {
+      type: String,
+      required: true,
+    },
+    usertype: {
+      type: String,
+      required: true,
+    },
+    review: [Review.schema],
+    comment: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User,",
+      },
+    ],
   },
-  lastName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 5,
-  },
-  district: {
-    type: String,
-    required: true,
-  },
-  usertype: {
-    type: String,
-    required: true,
-  },
-  review: [Review.schema],
+  {
+    toJSON: {
+      virtuals: true,
+      getters: true,
+    },
+    id: false,
+  }
+);
+
+userSchema.virtual("friendCount").get(function () {
+  return this.friends.length;
 });
 
 //middleware for password protection

@@ -4,5 +4,6 @@ const Product = require("./Product");
 const Article = require("./Article");
 const Research = require("./Research");
 const Review = require("./Review");
+const Reply = require("./Reply");
 
-module.exports = { User, Comment, Product, Article, Research, Review };
+module.exports = { User, Reply, Comment, Product, Article, Research, Review };

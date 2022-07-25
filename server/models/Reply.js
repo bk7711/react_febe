@@ -1,13 +1,13 @@
 const { Schema, model, Types } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 
-const commentSchema = new Schema(
+const replySchema = new Schema(
   {
     username: {
       type: String,
       required: true,
     },
-    commentBody: {
+    replyBody: {
       type: String,
     },
     createdAt: {
@@ -15,21 +15,14 @@ const commentSchema = new Schema(
       default: Date.now,
       get: (createdAtVal) => dateFormat(createdAtVal),
     },
-    hashtags: [],
-    reply: [replySchema],
   },
   {
-    toJSON: {
-      virtuals: true,
+    toJson: {
       getters: true,
     },
   }
 );
 
-commentSchema.virtual("replyCount").get(function () {
-  return this.reply.length;
-});
+const Reply = model("Reply", replySchema);
 
-const Comment = model("Comment", commentSchema);
-
-module.exports = Comment;
+module.exports = Reply;
