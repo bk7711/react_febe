@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const { Schema, model } = mongoose;
 const bcrypt = require("bcrypt");
 const Review = require("./Review");
@@ -50,7 +49,7 @@ const userSchema = new Schema(
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: "User,",
+        ref: "User",
       },
     ],
   },
@@ -59,7 +58,6 @@ const userSchema = new Schema(
       virtuals: true,
       getters: true,
     },
-    id: false,
   }
 );
 
@@ -81,6 +79,6 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.model("User", userSchema);
+const User = model("User", userSchema);
 
 module.exports = User;

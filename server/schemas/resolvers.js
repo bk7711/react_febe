@@ -17,12 +17,28 @@ const resolvers = {
         .populate("review")
         .populate("friends");
     },
-    comment: async (parent, { _id }) => {
-      return Comment.findOne({ _id }).populate("user").populate("reply");
+    comment: async (parent, { _id }, context) => {
+      if (context.user) {
+        const user = await (
+          await User.findById(context.user._id)
+        ).populated({
+          path: "comment",
+          path: "reply",
+        });
+        return user.comment.id(_id);
+      }
+      throw new AuthenticationError("Sign in first");
     },
+    allComments: async () => {
+      return Comment.find();
+    },
+
     comments: async (parent, { hashtags }) => {
       const params = hashtags ? { hashtags } : {};
       return Comment.find(params).sort({ createdAt: -1 });
+    },
+    products: async () => {
+      return Product.find();
     },
     product: async (parent, { _id }) => {
       return Product.findOne({ _id }).populate("review");
@@ -43,8 +59,16 @@ const resolvers = {
       const params = gradeBand ? { gradeBand } : {};
       return Product.find(params).populate("review");
     },
-    review: async (parent, { username }) => {
-      return (await Review.findOne({ username })).populated("product");
+    review: async (parent, { username }, context) => {
+      if (context.user) {
+        const user = await (
+          await User.findById(context.user.username)
+        ).populated({
+          path: "review",
+        });
+        return user.review.id(username);
+      }
+      throw new AuthenticationError("Not logged in");
     },
     overallReview: async (parent, { overall }) => {
       const params = overall ? { overall } : {};

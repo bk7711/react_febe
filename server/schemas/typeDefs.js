@@ -11,12 +11,15 @@ const typeDefs = gql`
     usertype: String
     review: [Review]
     comment: [Comment]
+    friendCount: Int
     friends: [User]
   }
+
   type Auth {
-    token: ID
+    token: ID!
     user: User
   }
+
   type Comment {
     _id: ID
     commentBody: String
@@ -51,32 +54,36 @@ const typeDefs = gql`
     title: String
     publisher: String
     copyright: Int
-    subject: Int
+    subject: String
     gradeBand: String
     review: [Review]
   }
   type Query {
-    user(
-      _id: ID!
-      firstName: String
-      lastName: String
-      username: String!
-      email: String!
-    ): User
+    user(username: String!): User
     users: [User]
     comment(_id: ID!): Comment
+    allComments: [Comment]
     comments(hashtags: String): [Comment]
     product(_id: ID!): Product
-    productSubject(subject: String!): Product
-    productPublisher(publisher: String!): Product
-    productCopyright(copyright: Int!): Product
-    productGrade(gradeBand: String!): Product
+    products: [Product]
+    productSubject(subject: String!): [Product]
+    productPublisher(publisher: String!): [Product]
+    productCopyright(copyright: Int!): [Product]
+    productGrade(gradeBand: String!): [Product]
     review(_id: ID!): Review
-    overallReview(overall: Int!): Review
+    overallReview(overall: Int!): [Review]
   }
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(
+      username: String!
+      firstName: String!
+      lastName: String!
+      email: String!
+      password: String!
+      usertype: String!
+      district: String!
+    ): Auth
     addComment(commentBody: String!): Comment
     addReply(commentId: ID!, replyBody: String!): Comment
     addReview(reviewBody: String!, overall: Int): Review
