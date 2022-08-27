@@ -17,17 +17,11 @@ const resolvers = {
         .populate("review")
         .populate("friends");
     },
-    comment: async (parent, { _id }, context) => {
-      if (context.user) {
-        const user = await (
-          await User.findById(context.user._id)
-        ).populated({
-          path: "comment",
-          path: "reply",
-        });
-        return user.comment.id(_id);
-      }
-      throw new AuthenticationError("Sign in first");
+    comment: async (parent, { _id }) => {
+      return Comment.findOne({ _id })
+        .select("-__v -password")
+        .populate("replyCount")
+        .populate("reply");
     },
     allComments: async () => {
       return Comment.find();

@@ -61,9 +61,9 @@ const typeDefs = gql`
   type Query {
     user(username: String!): User
     users: [User]
-    comment(_id: ID!): Comment
+    comment(_id: ID!): [Comment]
     allComments: [Comment]
-    comments(hashtags: String): [Comment]
+    comments(hashtags: String): Comment
     product(_id: ID!): Product
     products: [Product]
     productSubject(subject: String!): [Product]
@@ -74,7 +74,7 @@ const typeDefs = gql`
     overallReview(overall: Int!): [Review]
   }
   type Mutation {
-    login(email: String!, password: String!): Auth
+    login(username: String!, password: String!): Auth
     addUser(
       username: String!
       firstName: String!
@@ -84,7 +84,7 @@ const typeDefs = gql`
       usertype: String!
       district: String!
     ): Auth
-    addComment(commentBody: String!): Comment
+    addComment(commentBody: String!): Auth
     addReply(commentId: ID!, replyBody: String!): Comment
     addReview(reviewBody: String!, overall: Int): Review
     addFriend(friendId: ID!): User

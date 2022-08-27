@@ -1,7 +1,10 @@
-form {
+.search {
   width: 100%;
-  text-align: center;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
 }
 .search-btn {
   font-size: 0.5em;
+  color: white;
 }

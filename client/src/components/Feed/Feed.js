@@ -12,6 +12,7 @@ const Feed = () => {
           <input type="submit" value="Post" className="btn post-btn" />
         </form>
       </div>
+      <div className="friendFeed"></div>
     </div>
   );
 };

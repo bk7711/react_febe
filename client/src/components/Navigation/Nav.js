@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaUser, FaHome, FaComment } from "react-icons/fa";
 import "./Nav.css";
 
@@ -8,13 +9,19 @@ const Nav = () => {
       <h3>FEBE</h3>
       <ul className="nav-icons">
         <li>
-          <FaHome />
+          <Link to="/home">
+            <FaHome />
+          </Link>
         </li>
         <li>
-          <FaComment />
+          <Link to="/products">
+            <FaComment />
+          </Link>
         </li>
         <li>
-          <FaUser />
+          <Link to="/profile">
+            <FaUser />
+          </Link>
         </li>
       </ul>
     </div>

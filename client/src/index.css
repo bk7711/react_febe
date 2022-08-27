@@ -1,5 +1,6 @@
 :root {
   --medium: rgb(112, 98, 80);
+  --light: rgb(233, 221, 206);
 }
 
 body {
@@ -20,4 +21,10 @@ code {
 .btn {
   background-color: var(--medium);
   color: white;
+}
+
+@media (max-width: 720px) {
+  .jumbotron {
+    display: none;
+  }
 }

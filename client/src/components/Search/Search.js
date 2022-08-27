@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Search.css";
+// import { FaSearch } from "react-icons/fa";
 
 const Search = () => {
   const [showSearch, setShowSearch] = useState(false);
@@ -7,11 +8,12 @@ const Search = () => {
 
   function searchBar() {
     setShowSearch(true);
+
     console.log(showSearch);
   }
 
   return (
-    <form>
+    <form className="search">
       <label>
         <input
           type="text"
@@ -21,8 +23,11 @@ const Search = () => {
       </label>
 
       <input
-        type="submit"
-        value="Search"
+        type="button"
+        value="search"
+        style={{
+          backgroundColor: showSearch ? "var(--light)" : "var(--medium)",
+        }}
         className="btn search-btn"
         onClick={searchBar}
       />

@@ -1,0 +1,12 @@
+.headline {
+  background-color: color;
+  width: 20%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.news {
+  width: 90%;
+  align-self: center;
+}

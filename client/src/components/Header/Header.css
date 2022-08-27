@@ -1,0 +1,13 @@
+body {
+  background-color: rgb(221, 219, 217);
+}
+
+.jumbotron {
+  text-align: center;
+  font-size: 2.5em;
+  text-shadow: 1px 1px 2px rgb(248, 219, 224);
+  z-index: 45;
+  background-image: url("../../assets/images/kenny-eliason-zFSo6bnZJTw-unsplash.jpg");
+  height: 30vh;
+  background-position-y: 8%;
+}

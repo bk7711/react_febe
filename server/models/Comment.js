@@ -2,6 +2,24 @@ const { Schema, model, Types } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 // const Reply = require("./Reply");
 
+const hashtagSchema = new Schema(
+  {
+    hashtag: {
+      type: String,
+      createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (createdAtVal) => dateFormat(createdAtVal),
+      },
+    },
+  },
+  {
+    toJson: {
+      getters: true,
+    },
+  }
+);
+
 const replySchema = new Schema(
   {
     username: {
@@ -38,7 +56,7 @@ const commentSchema = new Schema(
       default: Date.now,
       get: (createdAtVal) => dateFormat(createdAtVal),
     },
-    hashtags: [],
+    hashtags: [hashtagSchema],
     reply: [replySchema],
   },
   {
